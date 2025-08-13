@@ -1,96 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <meta charset="UTF-8">
- <title>Gerador de QR Code Moderno</title>
- <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
- <link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="estilos.css">
+    <meta charset="UTF-8">
+    <title>Gerador QR Code - TI</title>
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
- <div class="container">
- <h2>Gerador de QR Code</h2>
- <div class="section">
- <h4>Gerar para URL</h4>
- <input type="text" id="urlInput" placeholder="https://seusite.com.br">
- <button onclick="gerarUrl()">Gerar QR Code</button>
- </div>
- <div class="section">
- <h4>Gerar para Wi-Fi</h4>
- <input type="text" id="ssid" placeholder="Nome da Rede (SSID)">
- <input type="text" id="senha" placeholder="Senha da Rede">
- <button onclick="gerarWifi()">Gerar QR Code</button>
- </div>
- <div id="qrcode-container">
- <div id="qrcode"></div>
- <button id="download-btn" class="btn-download">Baixar PNG</button>
- </div>
- </div>
- <script>
- var qrcodeContainer = document.getElementById("qrcode-container");
- var qrcodeElement = document.getElementById("qrcode");
- var downloadBtn = document.getElementById("download-btn");
+    <main>
+        <div class="container">
+            <div class="logo-container">
+                <img src="logo-ti.svg" alt="Logo Tecnologia da Informação" class="logo">
+            </div>
+            <h2>Gerador de QR Code</h2>
 
+            <div class="section">
+                <h4>Gerar para URL</h4>
+                <input type="text" id="urlInput" placeholder="https://seusite.com.br">
+                <button onclick="gerarUrl()">Gerar QR Code</button>
+            </div>
 
- var qrcode = new QRCode(qrcodeElement, {
- width: 200,
- height: 200,
- colorDark: "#000000",
- colorLight: "#ffffff",
- correctLevel: QRCode.CorrectLevel.H
- });
+            <div class="section">
+                <h4>Gerar para Wi-Fi</h4>
+                <input type="text" id="ssid" placeholder="Nome da Rede (SSID)">
+                <input type="text" id="senha" placeholder="Senha da Rede">
+                <button onclick="gerarWifi()">Gerar QR Code</button>
+            </div>
 
+            <div id="qrcode-container">
+                <div id="qrcode"></div>
+                <button id="download-btn" class="btn-download">Baixar PNG</button>
+            </div>
+        </div>
+    </main>
 
- function gerarUrl() {
- var url = document.getElementById("urlInput").value.trim();
- if (url) {
- qrcode.makeCode(url);
- mostrarResultado();
- } else {
- alert("Por favor, digite uma URL!");
- }
- }
+    <footer>
+        <p>Desenvolvido por DP Tecnologia da Informação <br> 
+            Facmais Ituiutaba | © 2025 |  todos os direitos reservados</p>
+    </footer>
 
-
- function gerarWifi() {
- var ssid = document.getElementById("ssid").value.trim();
- var senha = document.getElementById("senha").value.trim();
- if (ssid) {
- var wifiString = `WIFI:S:${ssid};T:WPA;P:${senha};;`;
- qrcode.makeCode(wifiString);
- mostrarResultado();
- } else {
- alert("Por favor, preencha pelo menos o nome da rede!");
- }
- }
-
-
- function mostrarResultado() {
- qrcodeContainer.style.display = 'flex';
- qrcodeContainer.style.flexDirection = 'column';
- qrcodeContainer.style.alignItems = 'center';
- downloadBtn.style.display = 'inline-block';
- }
-
-
- downloadBtn.addEventListener('click', function() {
- var qrImage = document.querySelector('#qrcode img');
-
-
- if (qrImage) {
- var imgSrc = qrImage.src;
- var link = document.createElement('a');
- link.href = imgSrc;
- link.download = 'qrcode.png';
- document.body.appendChild(link);
- link.click();
- document.body.removeChild(link);
- } else {
- alert("Não foi possível encontrar a imagem do QR Code para baixar.");
- }
- });
- </script>
+    <script>
+        var qrcodeContainer = document.getElementById("qrcode-container");
+        var qrcodeElement = document.getElementById("qrcode");
+        var downloadBtn = document.getElementById("download-btn");
+        var qrcode = new QRCode(qrcodeElement, {
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        function gerarUrl() {
+            var url = document.getElementById("urlInput").value.trim();
+            if (url) {
+                qrcode.makeCode(url);
+                mostrarResultado();
+            } else {
+                alert("Por favor, digite uma URL!");
+            }
+        }
+        function gerarWifi() {
+            var ssid = document.getElementById("ssid").value.trim();
+            var senha = document.getElementById("senha").value.trim();
+            if (ssid) {
+                var wifiString = `WIFI:S:${ssid};T:WPA;P:${senha};;`;
+                qrcode.makeCode(wifiString);
+                mostrarResultado();
+            } else {
+                alert("Por favor, preencha pelo menos o nome da rede!");
+            }
+        }
+        function mostrarResultado() {
+            qrcodeContainer.style.display = 'flex';
+        }
+        downloadBtn.addEventListener('click', function() {
+            var qrImage = document.querySelector('#qrcode img');
+            if (qrImage) {
+                var imgSrc = qrImage.src;
+                var link = document.createElement('a');
+                link.href = imgSrc;
+                link.download = 'qrcode.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert("Não foi possível encontrar a imagem do QR Code para baixar.");
+            }
+        });
+    </script>
 </body>
 </html>
