@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Gerador QR Code - TI</title>
+
+    <link rel="icon" href="logo-ti.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="logo-ti.png">
+    <link rel="shortcut icon" href="logo-ti.png" type="image/png">
+
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +37,16 @@
 
             <div id="qrcode-container">
                 <div id="qrcode"></div>
+                
+                <div class="settings-section">
+                    <label for="quality-select">Qualidade do Download:</label>
+                    <select id="quality-select" name="quality">
+                        <option value="300">Boa (300x300 px)</option>
+                        <option value="600" selected>Ótima (600x600 px)</option>
+                        <option value="1200">Excelente (1200x1200 px)</option>
+                    </select>
+                </div>
+
                 <button id="download-btn" class="btn-download">Baixar PNG</button>
             </div>
         </div>
@@ -39,24 +54,18 @@
 
     <footer>
         <p>Desenvolvido por DP Tecnologia da Informação <br>
-            ©2025 | Facmais Ituiutaba | todos os direitos reservados</p>
+        © 2025 | Facmais Ituiutaba | todos os direitos reservados</p>
     </footer>
 
     <script>
         var qrcodeContainer = document.getElementById("qrcode-container");
         var qrcodeElement = document.getElementById("qrcode");
         var downloadBtn = document.getElementById("download-btn");
-        var qrcode = new QRCode(qrcodeElement, {
-            width: 200,
-            height: 200,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
+
         function gerarUrl() {
             var url = document.getElementById("urlInput").value.trim();
             if (url) {
-                qrcode.makeCode(url);
+                gerarCodigo(url);
                 mostrarResultado();
             } else {
                 alert("Por favor, digite uma URL!");
@@ -67,20 +76,28 @@
             var senha = document.getElementById("senha").value.trim();
             if (ssid) {
                 var wifiString = `WIFI:S:${ssid};T:WPA;P:${senha};;`;
-                qrcode.makeCode(wifiString);
+                gerarCodigo(wifiString);
                 mostrarResultado();
             } else {
                 alert("Por favor, preencha pelo menos o nome da rede!");
             }
         }
-        
-        // --- FUNÇÃO CORRIGIDA ---
+        function gerarCodigo(texto) {
+            var qualidade = document.getElementById("quality-select").value;
+            qrcodeElement.innerHTML = "";
+            new QRCode(qrcodeElement, {
+                text: texto,
+                width: parseInt(qualidade),
+                height: parseInt(qualidade),
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
         function mostrarResultado() {
             qrcodeContainer.style.display = 'flex';
-            // A LINHA QUE FALTAVA FOI ADICIONADA DE VOLTA:
             downloadBtn.style.display = 'inline-block';
         }
-
         downloadBtn.addEventListener('click', function() {
             var qrImage = document.querySelector('#qrcode img');
             if (qrImage) {
