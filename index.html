@@ -38,8 +38,8 @@
     </main>
 
     <footer>
-        <p>Desenvolvido por DP Tecnologia da Informação <br> 
-            Facmais Ituiutaba | © 2025 |  todos os direitos reservados</p>
+        <p>Desenvolvido por DP Tecnologia da Informação <br>
+            ©2025 | Facmais Ituiutaba | todos os direitos reservados</p>
     </footer>
 
     <script>
@@ -73,9 +73,14 @@
                 alert("Por favor, preencha pelo menos o nome da rede!");
             }
         }
+        
+        // --- FUNÇÃO CORRIGIDA ---
         function mostrarResultado() {
             qrcodeContainer.style.display = 'flex';
+            // A LINHA QUE FALTAVA FOI ADICIONADA DE VOLTA:
+            downloadBtn.style.display = 'inline-block';
         }
+
         downloadBtn.addEventListener('click', function() {
             var qrImage = document.querySelector('#qrcode img');
             if (qrImage) {

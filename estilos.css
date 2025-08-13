@@ -106,7 +106,7 @@ button:hover {
     line-height: 0;
 }
 .btn-download {
-    background-color: #6c757d;
+    background-color: #50a9f8;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -125,8 +125,7 @@ button:hover {
 /* ESTILO DA BARRA DE RODAPÉ ATUALIZADO */
 footer {
     width: 100%;
-    background-color: #515253; /* Cor escura para a barra */
-    color: #f8f9fa; /* Cor clara para o texto */
+    color: #3b3d3f; /* Cor clara para o texto */
     text-align: center;
     padding: 8px 0;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Sombra sutil no topo da barra */
